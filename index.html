@@ -7,107 +7,158 @@
 <!-- Enlace a Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        text-align: center;
-        margin: 0;
-        padding: 0;
-    }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
 
-    .container {
-        display: flex; /* Usar flexbox para alinear los elementos */
-        justify-content: center; /* Centrar los elementos */
-        margin: 20px auto;
-        max-width: 1200px; /* Ancho máximo del contenedor */
-        flex-wrap: wrap; /* Permitir que los elementos se envuelvan en pantallas pequeñas */
-    }
+.container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    max-width: 1200px;
+    flex-wrap: wrap;
+}
 
+.tacho-standard {
+    width: 100%; /* Ocupa todo el ancho en dispositivos pequeños */
+    max-width: 300px; /* Tamaño máximo del tacho */
+    box-sizing: border-box;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px auto; /* Centrado automático */
+}
+
+.tacho-image-standard,
+.tacho-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+.options {
+    display: none;
+    justify-content: center;
+    background-color: #d3d3d3;
+    padding: 10px 0;
+    margin-top: 20px;
+}
+
+.texture-container {
+    display: inline-block; /* Asegura que las texturas estén en línea */
+    width: 80px;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s;
+}
+
+.texture-container.selected {
+    transform: scale(1.1);
+}
+
+.texture-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.texture-name {
+    color: #3A3A3A;
+    font-weight: bold;
+    margin-top: 10px; /* Mayor espacio para evitar superposición */
+    font-size: 14px; /* Tamaño ajustado para mejor legibilidad */
+    white-space: normal; /* Permitir que el texto se ajuste en varias líneas si es necesario */
+}
+
+.texture-container.selected .texture-name {
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+.nav-tabs .nav-link {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 15px;
+    margin-right: 10px;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #218838;
+    color: white;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #218838;
+    color: white;
+}
+
+.texture-row {
+    display: flex;
+    justify-content: flex-start; /* Alinear las texturas al inicio */
+    overflow-x: auto; /* Habilitar desplazamiento horizontal */
+    white-space: nowrap; /* Evitar que las texturas se envuelvan */
+    margin-top: 10px;
+    padding-bottom: 10px; /* Espacio adicional para evitar cortes */
+}
+
+/* Centrar las texturas de la pestaña Standard */
+#standard .texture-row {
+    justify-content: center; /* Centrar las texturas */
+    overflow-x: visible; /* No permitir desplazamiento horizontal */
+    white-space: normal; /* Permitir que las texturas se ajusten en filas */
+    flex-wrap: wrap; /* Envolver las texturas si es necesario */
+}
+
+/* Media Queries para dispositivos móviles */
+@media (max-width: 768px) {
     .tacho-standard {
-        width: 20%; /* Ancho de cada tacho estándar (reducido) */
-        box-sizing: border-box; /* Incluir padding y borde en el ancho total */
-        border-radius: 10px; /* Bordes redondeados */
-        overflow: hidden; /* Para asegurar que la imagen no sobresalga */
-        margin: 5px; /* Espacio entre los tachos */
-    }
-
-    .tacho-image-standard,
-    .tacho-image {
-        width: 100%; /* Asegura que la imagen ocupe todo el ancho */
-        height: auto; /* Mantiene la proporción de la imagen */
-        object-fit: contain; /* Asegura que la imagen se ajuste sin recortes */
-        border-radius: 10px; /* Bordes redondeados para la imagen */
-    }
-
-    .options {
-        display: none; /* Ocultar por defecto */
-        justify-content: center; /* Centrar los elementos */
-        background-color: #d3d3d3; /* Color de fondo gris */
-        padding: 10px 0; /* Espaciado interno */
-        overflow-x: auto; /* Permitir desplazamiento horizontal si es necesario */
-        flex-wrap: wrap; /* Permitir que las opciones se envuelvan */
-        margin-top: 20px; /* Espacio superior para separar de la imagen */
+        width: 90%; /* Ocupa casi todo el ancho en móviles */
     }
 
     .texture-container {
-        width: 80px; /* Ancho fijo para cada textura */
-        margin: 10px; /* Espacio entre las tramas */
-        text-align: center; /* Centrar el texto */
-        cursor: pointer; /* Cambiar el cursor al pasar sobre la textura */
-        position: relative; /* Para posicionar el título sobre el contenedor */
-        transition: transform 0.2s; /* Transición suave para efectos */
-    }
-
-    .texture-container.selected {
-        transform: scale(1.1); /* Aumentar el tamaño al seleccionar */
+        width: 60px; /* Reducir tamaño de las texturas */
     }
 
     .texture-circle {
-        width: 80px; /* Ancho del círculo */
-        height: 80px; /* Alto del círculo */
-        border-radius: 50%; /* Círculo */
-        overflow: hidden; /* Para asegurar que la textura no sobresalga */
-        margin: 0 auto; /* Centrar el círculo */
-        display: flex; /* Flex para centrar la imagen */
-        align-items: center; /* Centrar verticalmente */
-        justify-content: center; /* Centrar horizontalmente */
+        width: 60px;
+        height: 60px;
     }
 
     .texture-name {
-        color: #3A3A3A; /* Color del texto */
-        font-weight: bold; /* Negrita */
-        margin-top: 5px; /* Espacio superior */
-        transition: background-color 0.3s; /* Transición suave para el fondo */
+        font-size: 12px; /* Reducir tamaño del texto */
     }
 
-    .texture-container.selected .texture-name {
-        background-color: rgba(255, 255, 255, 0.7); /* Fondo blanco sutil */
-        border-radius: 5px; /* Bordes redondeados para el fondo */
-    }
-
-    /* Estilos personalizados para las pestañas */
     .nav-tabs .nav-link {
-        background-color: #28a745; /* Color de fondo de las pestañas (verde) */
-        color: white; /* Color del texto */
-        padding: 10px 15px; /* Padding para evitar que se pisen */
-        margin-right: 10px; /* Espacio a la derecha de cada pestaña */
+        font-size: 14px; /* Reducir tamaño de las pestañas */
+        padding: 8px 10px;
+    }
+}
+
+@media (max-width: 576px) {
+    .texture-container {
+        width: 50px; /* Más pequeño en pantallas muy pequeñas */
     }
 
-    .nav-tabs .nav-link:hover {
-        background-color: #218838; /* Color de fondo al pasar el mouse */
-        color: white; /* Color del texto al pasar el mouse */
+    .texture-circle {
+        width: 50px;
+        height: 50px;
     }
 
-    .nav-tabs .nav-link.active {
-        background-color: #218838; /* Color de fondo de la pestaña activa */
-        color: white; /* Color del texto de la pestaña activa */
+    .texture-name {
+        font-size: 10px; /* Texto aún más pequeño */
     }
-
-    .texture-row {
-        display: flex; /* Usar flexbox para alinear las tramas en una fila */
-        justify-content: center; /* Centrar las tramas */
-        margin-top: 10px; /* Espacio superior para separar de la imagen */
-    }
+}
 </style>
 </head>
 <body>
@@ -135,7 +186,7 @@
 <div id="standard" class="tab-pane fade show active options">
     <div class="texture-row">
         <div class="texture-container" onclick="selectTexture(this, 'standard-black.png')">
-           <div class="texture-circle">
+            <div class="texture-circle">
                 <img src="./tramas/black.png" alt="Black" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Black Standard</div>
@@ -157,75 +208,76 @@
 
 <div id="premium" class="tab-pane fade options">
     <div class="texture-row">
+        <!-- Texturas Premium -->
         <div class="texture-container" onclick="selectTexture(this, './front-angle/evolution-ebony.png')">
             <div class="texture-circle">
                 <img src="./tramas/ebony.png" alt="Ebony" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Ebony</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/evolution-dark-roast.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/evolution-dark-roast.png')">
             <div class="texture-circle">
-                <img src="./tramas/evolution-dark-roast.png" alt="Dark Roast" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/evolution-dark-roast.png" alt="Dark Roast" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Dark Roast</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/evolution-ivory.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/evolution-ivory.png')">
             <div class="texture-circle">
-                <img src="./tramas/ivory.png" alt="Ivory" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/ivory.png" alt="Ivory" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Ivory</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/retro-grey.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/retro-grey.png')">
             <div class="texture-circle">
-                <img src="./tramas/retro-grey.png" alt="Retro Grey Stucco" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/retro-grey.png" alt="Retro Grey Stucco" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Retro Grey Stucco</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/vintage-brick.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/vintage-brick.png')">
             <div class="texture-circle">
-                <img src="./tramas/vintage-brick.png" alt="Vintage Brick" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/vintage-brick.png" alt="Vintage Brick" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Vintage Brick</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/old-school-mix.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/old-school-mix.png')">
             <div class="texture-circle">
-                <img src="./tramas/old-school-mix-1.png" alt="Old School Mix" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/old-school-mix-1.png" alt="Old School Mix" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Old School Mix</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/urban-loft.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/urban-loft.png')">
             <div class="texture-circle">
-                <img src="./tramas/urban-loft.png" alt="Urban Loft" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/urban-loft.png" alt="Urban Loft" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Urban Loft</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/stacked-ledge-rock.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/stacked-ledge-rock.png')">
             <div class="texture-circle">
-                <img src="./tramas/stack-ladge-rock.png" alt="Stack Ledge Rock" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/stack-ladge-rock.png" alt="Stack Ledge Rock" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Stack Ledge Rock</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/walnut-plank.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/walnut-plank.png')">
             <div class="texture-circle">
-                <img src="./tramas/walnut-plank.png" alt="Walnut Plank" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/walnut-plank.png" alt="Walnut Plank" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Walnut Plank</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/white-washed-plank.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/white-washed-plank.png')">
             <div class="texture-circle">
-                <img src="./tramas/white-washed-plank.png" alt="White Washed Plank" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/white-washed-plank.png" alt="White Washed Plank" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">White Washed Plank</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/mocha-slate.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/mocha-slate.png')">
             <div class="texture-circle">
-                <img src="./tramas/mocha-slate.png" alt="Mocha Slate" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/mocha-slate.png" alt="Mocha Slate" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">Mocha Slate</div>
         </div>
-        <div class="texture-container" onclick="selectTexture(this, './front-angle/white-harringbone.png')">
+        <div class="texture-container" onclick="selectTexture(this, '../contenedores/front-angle/white-harringbone.png')">
             <div class="texture-circle">
-                <img src="./tramas/white-harringbone.png" alt="White Harringbone" style="width: 100%; height: auto;">
+                <img src="../contenedores/tramas/white-harringbone.png" alt="White Harringbone" style="width: 100%; height: auto;">
             </div>
             <div class="texture-name">White Harringbone</div>
         </div>
@@ -233,7 +285,7 @@
 </div>
 
 <div id="custom" class="tab-pane fade options">
-    <!-- No hay texturas específicas para Custom en este ejemplo -->
+    <!-- Opciones personalizadas -->
 </div>
 </div>
 
@@ -245,35 +297,26 @@
 <script>
 function updateCustomTacho(imagePath) {
 const currentTacho = document.getElementById('currentTacho');
-// Cambiar la imagen del tacho personalizado
 currentTacho.src = imagePath;
 }
 
 function selectTexture(selectedContainer, imagePath) {
-// Remover la clase 'selected' de todos los contenedores de textura
 document.querySelectorAll('.texture-container').forEach(container => {
     container.classList.remove('selected');
 });
-
-// Agregar la clase 'selected' al contenedor de textura seleccionado
 selectedContainer.classList.add('selected');
-
-// Cambiar la imagen del tacho según la trama seleccionada
 updateCustomTacho(imagePath);
 }
 
 function toggleSection(section) {
-// Ocultar todas las secciones
 document.querySelectorAll('.options').forEach(option => {
     option.style.display = 'none';
 });
 
-// Mostrar la sección seleccionada
 if (section === 'premium') {
     document.getElementById('premium').style.display = 'block';
 } else if (section === 'custom') {
-    // Cambiar la imagen directamente al seleccionar Custom
-    updateCustomTacho('./front-angle/custom.png'); // Cambiar la imagen del tacho a la personalizada
+    updateCustomTacho('./front-angle/custom.png');
 } else {
     document.getElementById('standard').style.display = 'block';
 }
