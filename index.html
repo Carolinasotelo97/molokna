@@ -120,6 +120,16 @@ body {
     flex-wrap: wrap; /* Envolver las texturas si es necesario */
 }
 
+/* Centrar las texturas de Premium en escritorio */
+@media (min-width: 768px) {
+    #premium .texture-row {
+        justify-content: center; /* Centrar las texturas en escritorio */
+        overflow-x: visible; /* No permitir desplazamiento horizontal */
+        white-space: normal; /* Permitir que las texturas se ajusten en filas */
+        flex-wrap: wrap; /* Envolver las texturas si es necesario */
+    }
+}
+
 /* Media Queries para dispositivos móviles */
 @media (max-width: 768px) {
     .tacho-standard {
