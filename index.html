@@ -105,7 +105,7 @@
 
         .texture-row {
             display: flex;
-            justify-content: flex-start;
+            justify-content: flex-star;
             overflow-x: auto;
             white-space: nowrap;
             margin-top: 10px;
@@ -118,6 +118,14 @@
             white-space: normal;
             flex-wrap: wrap;
         }
+        
+        #custom .texture-row {
+            justify-content: center;
+            overflow-x: visible;
+            white-space: normal;
+            flex-wrap: wrap;
+        }
+
 
         @media (min-width: 768px) {
             #premium .texture-row {
@@ -299,7 +307,26 @@
         </div>
 
         <div id="custom" class="tab-pane fade options">
-            <!-- Opciones personalizadas -->
+            <div class="texture-row">
+                <div class="texture-container" onclick="selectTexture(this, 'front-angle/buffalo-plaid.png')">
+                    <div class="texture-circle">
+                        <img src="./tramas/buffalo-plaid.png" alt="Matte Black" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="texture-name">Buffalo Plaid</div>
+                </div>
+                <div class="texture-container" onclick="selectTexture(this, 'front-angle/tacho-verde.png')">
+                    <div class="texture-circle">
+                        <img src="./tramas/verde.png" alt="Matte Black" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="texture-name">Green</div>
+                </div>
+                <div class="texture-container" onclick="selectTexture(this, 'front-angle/white-leaf.png')">
+                    <div class="texture-circle">
+                        <img src="./tramas/white-leaf.png" alt="Matte Black" style="width: 100%; height: auto;">
+                    </div>
+                    <div class="texture-name">White Leaf</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -330,6 +357,7 @@
             if (section === 'premium') {
                 document.getElementById('premium').style.display = 'block';
             } else if (section === 'custom') {
+                document.getElementById('custom').style.display = 'block';
                 updateCustomTacho('./front-angle/custom.png');
             } else {
                 document.getElementById('standard').style.display = 'block';
